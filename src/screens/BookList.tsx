@@ -4,18 +4,24 @@ import {
   ActivityIndicator,
   FlatList,
   SafeAreaView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import BookItem from "../components/BookItem";
-import { getBooks } from "../store/Actoins";
+import { addBookmark, getBooks, removeBookmark } from "../store/Actoins";
 
 function BookList(props) {
-  const { books } = useSelector((state) => state.booksReducer);
+  const { books, bookmarks } = useSelector((state) => state.booksReducer);
   const dispatch = useDispatch();
   const fetchBooks = () => dispatch(getBooks());
+  const addToBookmarkList = (book: any) => dispatch(addBookmark(book));
+  const removeBookmarkList = (book: any) => dispatch(removeBookmark(book));
+  const ifExist = (book: any) => bookmarks.includes(book);
+  const handleBookmark = (book: any) => {
+    ifExist(book) ? removeBookmarkList(book) : addToBookmarkList(book);
+  };
+
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
@@ -35,7 +41,13 @@ function BookList(props) {
           <FlatList
             data={books}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <BookItem item={item} />}
+            renderItem={({ item }) => (
+              <BookItem
+                item={item}
+                handleBookmark={handleBookmark}
+                ifExist={ifExist}
+              />
+            )}
             showsVerticalScrollIndicator={false}
           />
         </View>
@@ -43,14 +55,5 @@ function BookList(props) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default BookList;

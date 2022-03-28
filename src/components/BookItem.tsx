@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function BookItem(props) {
-  const { item } = props;
+  const { item, ifExist, handleBookmark } = props;
   return (
     <View style={{ marginVertical: 12 }}>
       <View style={{ flexDirection: "row", flex: 1 }}>
@@ -50,12 +50,16 @@ function BookItem(props) {
           {/* Buttons */}
           <View style={{ marginTop: 14 }}>
             <TouchableOpacity
-              onPress={() => console.log("Bookmarked!")}
+              onPress={() => {
+                console.log("helelelelele");
+
+                handleBookmark(item);
+              }}
               activeOpacity={0.7}
               style={{
                 flexDirection: "row",
                 padding: 2,
-                backgroundColor: "#2D3038",
+                backgroundColor: ifExist(item) ? "#F96D41" : "#2D3038",
                 borderRadius: 20,
                 alignItems: "center",
                 justifyContent: "center",
@@ -64,9 +68,9 @@ function BookItem(props) {
               }}
             >
               <MaterialCommunityIcons
-                color="#64676D"
+                color={ifExist(item) ? "white" : "#64676D"}
                 size={24}
-                name="bookmark-outline"
+                name={ifExist(item) ? "bookmark-outline" : "bookmark"}
               />
             </TouchableOpacity>
           </View>
