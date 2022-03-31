@@ -12,7 +12,9 @@ function BookList(props) {
   const fetchBooks = () => dispatch(getBooks());
   const addToBookmarkList = (book: any) => dispatch(addBookmark(book));
   const removeBookmarkList = (book: any) => dispatch(removeBookmark(book));
-  const ifExist = (book: any) => bookmarks.includes(book);
+  const ifExist = (book: any) => {
+    return bookmarks.filter((item) => item.id === book.id).length > 0;
+  };
   const handleBookmark = (book: any) => {
     ifExist(book) ? removeBookmarkList(book) : addToBookmarkList(book);
   };

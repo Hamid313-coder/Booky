@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function BookItem(props) {
   const { item, ifExist, handleBookmark } = props;
+
   return (
     <View style={{ marginVertical: 12 }}>
       <View style={{ flexDirection: "row", flex: 1 }}>
@@ -51,8 +52,6 @@ function BookItem(props) {
           <View style={{ marginTop: 14 }}>
             <TouchableOpacity
               onPress={() => {
-                console.log("helelelelele");
-
                 handleBookmark(item);
               }}
               activeOpacity={0.7}
