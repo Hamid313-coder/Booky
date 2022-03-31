@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import BookItem from "../components/BookItem";
 import { addBookmark, getBooks, removeBookmark } from "../store/Actoins";
