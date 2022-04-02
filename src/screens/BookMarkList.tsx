@@ -1,14 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import BookmarkItem from "../components/BookmarkItem";
-import { removeBookmark } from "../store/Actoins";
+import { removeBookmark } from "../store/booksSlice";
 
 function BookMarkList(props) {
   const dispatch = useDispatch();
-  const { bookmarks } = useSelector((state) => state.booksReducer);
+  const { bookmarks } = useSelector((state) => state.books);
   const removeBookmarkList = (book: any) => dispatch(removeBookmark(book));
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#1E1B26" }}>

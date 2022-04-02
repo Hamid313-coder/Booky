@@ -1,8 +1,20 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { booksReducer } from "./Reducers";
-import thunk from "redux-thunk";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
-import { persistStore, persistReducer } from "redux-persist";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
+import {
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
+import { booksSlice } from "./booksSlice";
 
 //In this root reducer just the book marks are saved
 //So we know from this result that there are some data (except the ones which are fetched from the server), that needs
@@ -16,8 +28,15 @@ const presistConfig = {
 };
 
 const rootReducer = combineReducers({
-  booksReducer: persistReducer(presistConfig, booksReducer),
+  books: persistReducer(presistConfig, booksSlice),
 });
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+});
 export const presistore = persistStore(store);

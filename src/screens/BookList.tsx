@@ -4,12 +4,11 @@ import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import BookItem from "../components/BookItem";
-import { addBookmark, getBooks, removeBookmark } from "../store/Actoins";
+import { addBookmark, fetchBooks, removeBookmark } from "../store/booksSlice";
 
 function BookList(props) {
-  const { books, bookmarks } = useSelector((state) => state.booksReducer);
+  const { books, bookmarks } = useSelector((state) => state.books);
   const dispatch = useDispatch();
-  const fetchBooks = () => dispatch(getBooks());
   const addToBookmarkList = (book: any) => dispatch(addBookmark(book));
   const removeBookmarkList = (book: any) => dispatch(removeBookmark(book));
   const ifExist = (book: any) => {
@@ -22,7 +21,7 @@ function BookList(props) {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
-    fetchBooks();
+    fetchBooks(dispatch);
     setIsLoading(false);
   }, []);
 
