@@ -23,6 +23,8 @@ export const booksSlice = createSlice({
   },
 });
 
+export default booksSlice.reducer;
+
 export const { getBooks, addBookmark, removeBookmark } = booksSlice.actions;
 
 export const fetchBooks = async (dispatch: Function) => {

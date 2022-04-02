@@ -1,3 +1,4 @@
+import booksReducer from "./booksSlice";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 import {
   FLUSH,
@@ -14,7 +15,6 @@ import {
   configureStore,
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
-import { booksSlice } from "./booksSlice";
 
 //In this root reducer just the book marks are saved
 //So we know from this result that there are some data (except the ones which are fetched from the server), that needs
@@ -28,7 +28,7 @@ const presistConfig = {
 };
 
 const rootReducer = combineReducers({
-  books: persistReducer(presistConfig, booksSlice),
+  books: persistReducer(presistConfig, booksReducer),
 });
 
 export const store = configureStore({
