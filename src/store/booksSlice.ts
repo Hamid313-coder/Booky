@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
 import { BASE_URL } from "../config";
 
+// An Instance for knowing how to make slice in redux-toolkit
 export const booksSlice = createSlice({
   name: "books",
   initialState: {
@@ -27,6 +28,7 @@ export default booksSlice.reducer;
 
 export const { getBooks, addBookmark, removeBookmark } = booksSlice.actions;
 
+// An instance for knowing how to do asyncronous task in redux-toolkit
 export const fetchBooks = async (dispatch: Function) => {
   try {
     const response = await Axios.get(BASE_URL);
